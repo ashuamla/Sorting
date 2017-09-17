@@ -1,0 +1,64 @@
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Stack;
+
+public class TopologicalSort {
+	private static int V;
+	LinkedList<Integer> list[];
+	public TopologicalSort(int n) {
+		V=n;
+		list=new LinkedList[V];
+		for(int i=0; i<V; i++ )
+		{
+			list[i]=new LinkedList<Integer>();
+		}
+	}
+
+	private void addEdge(int i, int j) {
+		list[i].add(j);
+	}
+	
+	private void traverse() {
+		boolean checked[]=new boolean[V];
+		Stack<Integer> stack=new Stack<Integer>();
+		for(int i=0; i<V; i++)
+		{
+			if(!checked[i]){
+				topoPrint(i, checked, stack);
+			}
+		}
+		
+		while(stack.size()!=0)
+		{
+			System.out.println(stack.pop()+" ");
+		}
+	}
+
+	void topoPrint(int src, boolean[] checked, Stack<Integer> stack)
+	{
+		checked[src]=true;
+		Iterator<Integer> it=list[src].listIterator();
+		while(it.hasNext())
+		{
+			int x=it.next();
+			if(!checked[x])
+				topoPrint(x, checked, stack);
+		}
+		stack.push(src);
+	}
+	
+	public static void main(String[] args)
+	{
+		TopologicalSort d=new TopologicalSort(5);
+		d.addEdge(0,1);
+		d.addEdge(0, 2);
+		d.addEdge(1, 4);
+		d.addEdge(2, 3);
+		d.addEdge(3, 4);
+		
+		d.traverse();
+	}
+
+	
+}
