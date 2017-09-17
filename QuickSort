@@ -1,0 +1,49 @@
+
+public class QuickSort {
+	
+private int partition(int[] a, int start, int end) {
+		int pivot=a[end];
+		int pIndex=start;
+		for(int i=start; i<end; i++)
+		{
+			if(a[i]<pivot)
+			{
+				swap(a, i, pIndex);
+				pIndex++;
+			}
+		}
+		swap(a,pIndex ,end);
+		return pIndex;
+	}
+
+	private void swap(int[] a , int i, int j) {
+	int temp=a[i];
+	a[i]=a[j];
+	a[j]=temp; 
+	
+}
+
+	void sort(int[] a, int start, int end)
+	{
+		if(start>=end)
+			return;
+		int pivot=partition(a, start, end);
+		sort(a, start, pivot-1);
+		sort(a, pivot+1, end);
+		
+	}
+	public static void main(String[] args)
+	{
+		int[] a={6,7,5,8,9,3,2,1};
+		QuickSort q=new QuickSort();
+		int start=0;
+		int end=a.length-1;
+		q.sort(a, start, end);
+		for(int i: a)
+		{
+			System.out.print(i+" ");
+		}
+	}
+	
+
+}
